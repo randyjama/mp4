@@ -1,6 +1,7 @@
 package ca.ubc.ece.cpen221.mp4.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ca.ubc.ece.cpen221.mp4.expression.Addition;
 import ca.ubc.ece.cpen221.mp4.operator.BinaryOperator;
 import ca.ubc.ece.cpen221.mp4.operator.Operator;
 import ca.ubc.ece.cpen221.mp4.operator.UnaryOperator;
@@ -25,8 +27,8 @@ public class Calculator extends JPanel {
 
 	// CHECKSTYLE:OFF
 	private List<Operator> supportedOperatorList;
-	private static final int WIDTH = 500;
-	private static final int HEIGHT = 250;
+	private static final int WIDTH = 1000; // res
+	private static final int HEIGHT = 600; // res
 
 	private JLabel runningValueDisplay;
 	private double runningValue;
@@ -42,6 +44,7 @@ public class Calculator extends JPanel {
 	 */
 	public Calculator(List<Operator> supportedOperatorList) {
 		// TODO implement this constructor
+		this.supportedOperatorList = supportedOperatorList;
 	}
 
 	/**
@@ -100,6 +103,7 @@ public class Calculator extends JPanel {
 		layoutNumberRange(numberPanel, 1, 3);
 		numberPanel.add(new JLabel()); // Offset the Zero
 		layoutNumberRange(numberPanel, 0, 0);
+		numberPanel.setPreferredSize(new Dimension(600, 400)); // res
 		return numberPanel;
 
 	}
@@ -108,6 +112,7 @@ public class Calculator extends JPanel {
 		for (int number = lower; number <= upper; number++) {
 			final int finalNumber = number;
 			JButton button = new JButton(String.valueOf(number));
+			button.setFont(new java.awt.Font("Calibri", 2, 54)); // res OPERATORS
 			button.addActionListener((e) -> numberPressed(finalNumber));
 			panel.add(button);
 		}
@@ -119,6 +124,7 @@ public class Calculator extends JPanel {
 		for (Operator operator : supportedOperatorList) {
 			final Operator finalOperator = operator;
 			JButton button = new JButton(finalOperator.toString());
+			button.setFont(new java.awt.Font("Calibri", 2, 54)); // res
 			// Need to do something fancy with the sub-types
 			if (operator instanceof UnaryOperator) {
 				button.addActionListener((e) -> applyUnaryOperator((UnaryOperator) finalOperator));
@@ -128,6 +134,7 @@ public class Calculator extends JPanel {
 			operatorPanel.add(button);
 		}
 		JButton equalsButton = new JButton("=");
+		equalsButton.setFont(new java.awt.Font("Calibri", 2, 54)); // res
 		equalsButton.addActionListener((e) -> calculate());
 		operatorPanel.add(equalsButton);
 		return operatorPanel;
@@ -135,6 +142,7 @@ public class Calculator extends JPanel {
 
 	private void setDisplay(double value) {
 		this.runningValueDisplay.setText(String.valueOf(value));
+		this.runningValueDisplay.setFont(new java.awt.Font("Calibri", 2, 54)); // res
 	}
 
 	private void setSelectedOperator(BinaryOperator binaryOperator) {
