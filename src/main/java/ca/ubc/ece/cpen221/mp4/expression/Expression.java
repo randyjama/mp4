@@ -1,5 +1,9 @@
 package ca.ubc.ece.cpen221.mp4.expression;
 
+/*
+ * expr := numberExpr V uniOpExpr V expr binOp expr
+ */
+
 /**
  * Expression - An arithmetic expression.
  *

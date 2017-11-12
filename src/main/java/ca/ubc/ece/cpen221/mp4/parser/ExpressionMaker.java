@@ -1,9 +1,15 @@
 package ca.ubc.ece.cpen221.mp4.parser;
 
+import ca.ubc.ece.cpen221.mp4.expression.BinaryExpression;
 import ca.ubc.ece.cpen221.mp4.expression.Expression;
+import ca.ubc.ece.cpen221.mp4.expression.NumberExpression;
+import ca.ubc.ece.cpen221.mp4.expression.UnaryExpression;
 import ca.ubc.ece.cpen221.mp4.operator.BinaryOperator;
 import ca.ubc.ece.cpen221.mp4.operator.UnaryOperator;
 
+/*
+ * make object and call expr class
+ */
 /**
  * ExpressionMaker - a helper class for creating Expressions given various
  * Operators and Expressions
@@ -25,7 +31,9 @@ public class ExpressionMaker {
 	public Expression createBinaryOperationExpression(BinaryOperator operator, Expression operand1,
 			Expression operand2) {
 		// TODO implement this method
-		return null;
+		BinaryExpression bin = new BinaryExpression(operator, operand1, operand2);
+
+		return bin;
 	}
 
 	/**
@@ -39,7 +47,9 @@ public class ExpressionMaker {
 	 */
 	public Expression createUnaryOperationExpression(UnaryOperator operator, Expression operand) {
 		// TODO implement this method
-		return null;
+		UnaryExpression uni = new UnaryExpression(operator, operand);
+
+		return uni;
 	}
 
 	/**
@@ -51,7 +61,9 @@ public class ExpressionMaker {
 	 */
 	public Expression createNumberExpression(double value) {
 		// TODO implement this method
-		return null;
+		NumberExpression num = new NumberExpression(value);
+
+		return num;
 	}
 
 }

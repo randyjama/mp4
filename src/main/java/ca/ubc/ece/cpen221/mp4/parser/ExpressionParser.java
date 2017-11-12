@@ -55,7 +55,6 @@ public final class ExpressionParser {
 		table.put("/", 2);
 		this.precedence = new OrderOfOperationsRules(table);
 		this.validator = new Validator(operationSet);
-
 	}
 
 	/**

@@ -25,5 +25,4 @@ public class Exponentiation implements BinaryOperator {
 		String representation = "^";
 		return representation;
 	}
-	
 }
