@@ -14,6 +14,7 @@ import org.junit.Test;
 import ca.ubc.ece.cpen221.mp4.expression.AbsoluteValue;
 import ca.ubc.ece.cpen221.mp4.expression.Addition;
 import ca.ubc.ece.cpen221.mp4.expression.BinaryExpression;
+import ca.ubc.ece.cpen221.mp4.expression.DerivativeExpression;
 import ca.ubc.ece.cpen221.mp4.expression.Division;
 import ca.ubc.ece.cpen221.mp4.expression.Exponentiation;
 import ca.ubc.ece.cpen221.mp4.expression.Expression;
@@ -21,6 +22,7 @@ import ca.ubc.ece.cpen221.mp4.expression.Multiplication;
 import ca.ubc.ece.cpen221.mp4.expression.Negation;
 import ca.ubc.ece.cpen221.mp4.expression.NumberExpression;
 import ca.ubc.ece.cpen221.mp4.expression.Subtraction;
+import ca.ubc.ece.cpen221.mp4.expression.UnaryExpression;
 import ca.ubc.ece.cpen221.mp4.expression.VariableExpression;
 import ca.ubc.ece.cpen221.mp4.operator.Operator;
 import ca.ubc.ece.cpen221.mp4.parser.CommandLineParser;
@@ -57,13 +59,34 @@ public class SimpleCalculatorTest {
 		Expression exp = parser.parse(expression);
 */
 		
+		// exp1 = x * x - 2
 		VariableExpression var = new VariableExpression("x");
 		var.store(3);
 		Expression exp = new BinaryExpression (new Subtraction(), 
 				new BinaryExpression(new Multiplication(), var, var), 
 				new NumberExpression(2));
 		
+		// derv for exp1 = 2x
+		DerivativeExpression derv = new DerivativeExpression(exp, var);
+		System.out.println(derv.eval());
+		
 		assertEquals(7, exp.eval(), 0.01);
+		assertEquals(6, derv.eval(), 0.01);
+		
+		// exp2 = x^3 + 5x^2
+		var = new VariableExpression("x");
+		var.store(2);
+		exp = new BinaryExpression(new Addition(), 
+				new BinaryExpression (new Exponentiation(), var, new NumberExpression(3)), 
+				new BinaryExpression (new Multiplication(), new NumberExpression(5),
+						new BinaryExpression(new Exponentiation(),var, new NumberExpression(2))));
+		
+		//derv for exp2 = 3x^2 + 10x
+		DerivativeExpression derv2 = new DerivativeExpression(exp, var);
+		System.out.println(derv2.eval());
+		
+		assertEquals(28, exp.eval(), 0.01);
+		assertEquals(32, derv2.eval(), 0.01);
 	}
 
 }
