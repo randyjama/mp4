@@ -87,6 +87,18 @@ public class SimpleCalculatorTest {
 		System.out.println(derv2.toString());
 	}
 
+	@Test
+	public void test1() {
+		VariableExpression var = new VariableExpression("x");
+		Expression exp = new BinaryExpression(new Subtraction(),
+				new BinaryExpression(new Exponentiation(), var, new NumberExpression(2)),
+				new BinaryExpression(new Addition(),
+						new BinaryExpression(new Multiplication(), var, new NumberExpression(3)),
+						new NumberExpression(2)));
+		var.store(2.5);
+		assertEquals(exp.eval(), 0.75, 0.001);
+	}
+
 	// test roots of function
 	@Test
 	public void test2() {
@@ -99,6 +111,12 @@ public class SimpleCalculatorTest {
 						new BinaryExpression(new Multiplication(), var, new NumberExpression(3)),
 						new NumberExpression(2)));
 
+/*		Expression exp = new BinaryExpression(new Subtraction(),
+				new BinaryExpression(new Multiplication(), var, var), 
+				new BinaryExpression(new Addition(), 
+						new BinaryExpression(new Multiplication(), var, new NumberExpression(3)), 
+						new NumberExpression(2)));
+*/		
 		// derv for exp1 = 2x - 3
 		DerivativeExpression derv = new DerivativeExpression(exp, var);
 
