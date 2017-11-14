@@ -103,7 +103,7 @@ public class SimpleCalculatorTest {
 	@Test
 	public void test2() {
 
-		// exp1 = x^2 - 3x + 2
+		// exp1 = x^2 - 3x + 2 (initially should be -2)
 		VariableExpression var = new VariableExpression("x");
 		Expression exp = new BinaryExpression(new Subtraction(),
 				new BinaryExpression(new Exponentiation(), var, new NumberExpression(2)),
