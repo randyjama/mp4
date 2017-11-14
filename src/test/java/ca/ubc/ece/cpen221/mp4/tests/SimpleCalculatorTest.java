@@ -90,38 +90,42 @@ public class SimpleCalculatorTest {
 	@Test
 	public void test1() {
 		VariableExpression var = new VariableExpression("x");
-		Expression exp = new BinaryExpression(new Subtraction(),
-				new BinaryExpression(new Exponentiation(), var, new NumberExpression(2)),
-				new BinaryExpression(new Addition(),
-						new BinaryExpression(new Multiplication(), var, new NumberExpression(3)),
-						new NumberExpression(2)));
+		Expression exp = new BinaryExpression(new Addition(),
+				new BinaryExpression(new Subtraction(),
+						new BinaryExpression(new Exponentiation(), var, new NumberExpression(2)), 
+						new BinaryExpression(new Multiplication(), var, new NumberExpression(3))),
+				new NumberExpression(2));
 		var.store(2.5);
-		assertEquals(exp.eval(), 0.75, 0.001);
+		System.out.println(exp.toString());
+		assertEquals(0.75, exp.eval(), 0.001);
 	}
 
+	
 	// test roots of function
 	@Test
 	public void test2() {
 
 		// exp1 = x^2 - 3x + 2 (initially should be -2)
 		VariableExpression var = new VariableExpression("x");
-		Expression exp = new BinaryExpression(new Subtraction(),
+		
+/*		Expression exp = new BinaryExpression(new Subtraction(),
 				new BinaryExpression(new Exponentiation(), var, new NumberExpression(2)),
 				new BinaryExpression(new Addition(),
 						new BinaryExpression(new Multiplication(), var, new NumberExpression(3)),
 						new NumberExpression(2)));
-
-/*		Expression exp = new BinaryExpression(new Subtraction(),
-				new BinaryExpression(new Multiplication(), var, var), 
-				new BinaryExpression(new Addition(), 
-						new BinaryExpression(new Multiplication(), var, new NumberExpression(3)), 
-						new NumberExpression(2)));
-*/		
+*/
+		Expression exp = new BinaryExpression(new Addition(),
+				new BinaryExpression(new Subtraction(),
+						new BinaryExpression(new Exponentiation(), var, new NumberExpression(2)), 
+						new BinaryExpression(new Multiplication(), var, new NumberExpression(3))),
+				new NumberExpression(2));
+		
 		// derv for exp1 = 2x - 3
 		DerivativeExpression derv = new DerivativeExpression(exp, var);
 
 		// see if newtons method returns 1 or 2 for above fn
-		assertEquals(2, derv.newtonsMethod(exp, var, 2.5, 0.0001), 0.001);
+		assertEquals(2, derv.newtonsMethod(exp, var, 3.5, 0.0001), 0.001);
+		assertEquals(1, derv.newtonsMethod(exp, var, -0.5, 0.0001), 0.001);
 	}
 
 }
